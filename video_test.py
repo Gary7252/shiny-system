@@ -1,23 +1,18 @@
-# 修复：新版 moviepy 正确导入方式（无 editor）
-from moviepy.video.io.VideoFileClip import VideoFileClip
-import os
+import moviepy as mp
 
-# 自动剪辑（最简单、最稳定、不报错版本）
 def auto_edit():
-    print("开始读取视频...")
-    
-    # 读取你的视频 test.mp4
-    clip = VideoFileClip("test.mp4")
+    print("开始处理视频...")
 
-    # 直接导出到当前文件夹，不报错
-    clip.write_videofile(
-        "result.mp4",
-        codec="libx264",
-        audio_codec="aac"
-    )
+    # 读取视频
+    video = mp.VideoFileClip("test.mp4")
 
-    print("✅ 剪辑完成！")
-    print("视频已保存到当前文件夹：result.mp4")
+    # 截取：45秒 ~ 60秒
+    final = video[45:60]
+
+    # 导出视频
+    final.write_videofile("result.mp4")
+
+    print("导出完成：result.mp4")
 
 if __name__ == "__main__":
     auto_edit()
